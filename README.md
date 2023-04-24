@@ -13,7 +13,7 @@
 
 Starter repository for a Vite & React & TypeScrip project using Airbnb's ESLint config and Prettier recommended rules and styles.
 
-## Installation
+## Getting started
 
 ```bash
 $ git clone https://github.com/shopot/vite-react-typescript.git
