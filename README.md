@@ -46,12 +46,3 @@ $ npm run lint
 ## License
 
 [MIT](LICENSE).
-
-step 1: clone the existing repo.
-step 2: delete the .git folder in cloned repo folder
-step 3: create a new repo in git.
-step 4: in the cloned repo folder run git init
-step 5: git add .
-step 6: git remote add origin NEW_REPO/URL
-step 7: git branch -M "branch_name"
-step 8: git push --set-upstream origin branch_name
