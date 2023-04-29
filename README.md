@@ -11,7 +11,7 @@
 
 ## Description
 
-Starter repository for a Vite & React & TypeScrip project using Airbnb's ESLint config and Prettier recommended rules and styles.
+Starter repository for a Vite & React & TypeScrip project using ESLint and Prettier recommended rules and styles.
 
 ## Getting started
 
