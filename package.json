@@ -31,7 +31,7 @@
     "compose-function": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.1"
+    "react-router-dom": "^6.11.2"
   },
   "devDependencies": {
     "@types/node": "^18.15.13",
@@ -42,7 +42,7 @@
     "@typescript-eslint/parser": "^5.59.0",
     "@vitejs/plugin-react": "^4.0.0-beta.0",
     "autoprefixer": "^10.4.14",
-    "eslint": "^8.40.0",
+    "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
@@ -56,6 +56,6 @@
     "prettier": "^2.8.8",
     "sass": "^1.62.1",
     "typescript": "^5.0.4",
-    "vite": "^4.3.5"
+    "vite": "^4.3.8"
   }
 }
