@@ -1,7 +1,8 @@
-import reactLogo from '../../assets/react.svg';
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 
-export const TestPage = (): JSX.Element => {
+import reactLogo from '../../../assets/react.svg';
+
+export const HomePage = (): ReactElement => {
   const [count, setCount] = useState(0);
 
   return (
