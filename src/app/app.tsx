@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 
-import './App.scss';
+import './app.scss';
 
 import { withProviders } from './providers';
-import { AppRouter } from './AppRouter';
+import { AppRouter } from './app-router.tsx';
 
 export const App = withProviders((): ReactElement => <AppRouter />);
