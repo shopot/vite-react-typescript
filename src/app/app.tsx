@@ -1,8 +1,5 @@
-import { JSX } from 'react';
-
 import './app.scss';
-
-import { withProviders } from './providers';
 import { AppRouter } from './app-router';
+import { withProviders } from './providers';
 
 export const App = withProviders((): JSX.Element => <AppRouter />);

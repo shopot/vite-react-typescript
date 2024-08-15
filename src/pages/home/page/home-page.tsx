@@ -1,5 +1,4 @@
-import { JSX, useState } from 'react';
-
+import { type JSX, useState } from 'react';
 import reactLogo from '../../../assets/react.svg';
 
 export const HomePage = (): JSX.Element => {

@@ -1,9 +1,7 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
+import react from '@vitejs/plugin-react-swc';
+import path from 'node:path';
 import autoprefixer from 'autoprefixer';
-
-export const pathResolver = (p: string) => resolve(__dirname, '.', p);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,7 +13,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': pathResolver('./src'),
+      '~/app': path.resolve('src/app'),
+      '~/entities': path.resolve('src/entities'),
+      '~/features': path.resolve('src/features'),
+      '~/pages': path.resolve('src/pages'),
+      '~/shared': path.resolve('src/shared'),
+      '~/widgets': path.resolve('src/widgets'),
     },
   },
 });
