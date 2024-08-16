@@ -1,9 +1,8 @@
 import { fixupPluginRules } from '@eslint/compat';
 import eslintJS from '@eslint/js';
 import tsParser from '@typescript-eslint/parser';
-import { resolve as tsResolver } from 'eslint-import-resolver-typescript';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import eslintPluginImport from 'eslint-plugin-import';
+import eslintImportX from 'eslint-plugin-import-x';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import eslintPluginReact from 'eslint-plugin-react';
 import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
@@ -12,7 +11,6 @@ import globals from 'globals';
 import typescriptEslint from 'typescript-eslint';
 
 const patchedReactHooksPlugin = fixupPluginRules(eslintPluginReactHooks);
-const patchedImportPlugin = fixupPluginRules(eslintPluginImport);
 
 const NO_ACCESS_MODIFIER = 'There is no need to limit developer access to properties.';
 const NO_PROP_TYPES = 'No PropTypes. Use Typescript instead.';
@@ -102,11 +100,7 @@ const baseESLintConfig = {
     ],
 
     /** https://eslint.org/docs/latest/rules/prefer-destructuring */
-    'prefer-destructuring': [
-      'error',
-      { array: false, object: true },
-      { enforceForRenamedProperties: false },
-    ],
+    'prefer-destructuring': ['error', { array: false, object: true }, { enforceForRenamedProperties: false }],
 
     /** https://eslint.org/docs/latest/rules/func-style */
     'func-style': ['error', 'expression', { allowArrowFunctions: true }],
@@ -235,27 +229,19 @@ const typescriptConfig = {
       },
     ],
   },
-  settings: {
-    'import/resolver': {
-      typescript: {
-        alwaysTryTypes: true,
-        project: './tsconfig.json',
-      },
-    },
-  },
 };
 
 const importConfig = {
-  name: 'import',
+  name: 'import-x',
   plugins: {
-    import: patchedImportPlugin,
+    'import-x': eslintImportX,
   },
   rules: {
-    'import/first': 'error',
-    'import/newline-after-import': 'error',
-    'import/no-duplicates': 'error',
-    'import/prefer-default-export': 'off',
-    'import/no-anonymous-default-export': [
+    'import-x/first': 'error',
+    'import-x/newline-after-import': 'error',
+    'import-x/no-duplicates': ['error', { 'prefer-inline': true }],
+    'import-x/prefer-default-export': 'off',
+    'import-x/no-anonymous-default-export': [
       'error',
       {
         allowArray: false,
@@ -267,42 +253,45 @@ const importConfig = {
         allowObject: true,
       },
     ],
-    'import/no-unassigned-import': 'off',
-    'import/no-unused-modules': 'error',
-    'import/no-unresolved': 'off',
-    'import/namespace': 'off',
-    'import/default': 'off',
-    'import/export': 'off',
-    'import/no-named-as-default-member': 'off',
-    'import/no-named-as-default': 'off',
-    'import/order': [
+    'import-x/no-unassigned-import': 'off',
+    'import-x/no-unused-modules': 'error',
+    'import-x/no-unresolved': 'off',
+    'import-x/namespace': 'off',
+    'import-x/default': 'off',
+    'import-x/export': 'off',
+    'import-x/no-named-as-default-member': 'off',
+    'import-x/no-named-as-default': 'off',
+    'import-x/order': [
       'error',
       {
-        'newlines-between': 'never',
-        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+        'newlines-between': 'always',
+        groups: ['builtin', 'external', 'internal', 'unknown', 'parent', 'sibling', 'index', 'object', 'type'],
         alphabetize: { order: 'asc' },
-        pathGroupsExcludedImportTypes: ['react'],
+        pathGroupsExcludedImportTypes: ['builtin'],
         pathGroups: [
-          {
-            pattern: '~/**',
-            group: 'internal',
-            position: 'after',
-          },
-          { pattern: 'react', group: 'external', position: 'before' },
-          { pattern: 'react-dom/**', group: 'external', position: 'before' },
-          { pattern: 'api/**', group: 'internal', position: 'after' },
-          { pattern: 'app/**', group: 'internal', position: 'after' },
-          { pattern: 'assets/**', group: 'internal', position: 'after' },
-          { pattern: 'components/**', group: 'internal', position: 'after' },
-          { pattern: 'config/**', group: 'internal', position: 'after' },
-          { pattern: 'contexts/**', group: 'internal', position: 'after' },
-          { pattern: 'features/**', group: 'internal', position: 'after' },
-          { pattern: 'hooks/**', group: 'internal', position: 'after' },
-          { pattern: 'lib/**', group: 'internal', position: 'after' },
-          { pattern: 'providers/**', group: 'internal', position: 'after' },
-          { pattern: 'routes/**', group: 'internal', position: 'after' },
-          { pattern: 'stores/**', group: 'internal', position: 'after' },
-          { pattern: 'utils/**', group: 'internal', position: 'after' },
+          { pattern: 'react', group: 'external' },
+          { pattern: 'react-dom/**', group: 'external' },
+          /** FSD */
+          { pattern: '~app/**', group: 'internal' },
+          { pattern: '~pages/**', group: 'internal' },
+          { pattern: '~widgets/**', group: 'internal' },
+          { pattern: '~features/**', group: 'internal' },
+          { pattern: '~shared/**', group: 'internal' },
+          /** Bulletproof React */
+          { pattern: 'api/**', group: 'internal' },
+          { pattern: 'app/**', group: 'internal' },
+          { pattern: 'assets/**', group: 'internal' },
+          { pattern: 'components/**', group: 'internal' },
+          { pattern: 'config/**', group: 'internal' },
+          { pattern: 'contexts/**', group: 'internal' },
+          { pattern: 'features/**', group: 'internal' },
+          { pattern: 'hooks/**', group: 'internal' },
+          { pattern: 'lib/**', group: 'internal' },
+          { pattern: 'providers/**', group: 'internal' },
+          { pattern: 'routes/**', group: 'internal' },
+          { pattern: 'stores/**', group: 'internal' },
+          { pattern: 'store/**', group: 'internal' },
+          { pattern: 'utils/**', group: 'internal' },
           {
             pattern: '*.(css|sass|less|scss|pcss|style)',
             group: 'index',
@@ -318,6 +307,11 @@ const importConfig = {
         patterns: [
           {
             group: [
+              '~app/*/**',
+              '~pages/*/**',
+              '~widgets/*/**',
+              '~features/*/**',
+              '~shared/*/**',
               'api/*/**',
               'app/*/**',
               'assets/*/*/**',
@@ -338,14 +332,6 @@ const importConfig = {
         ],
       },
     ],
-  },
-  settings: {
-    'import/parsers': {
-      espree: ['.js', '.cjs'],
-    },
-    'import/resolver': {
-      typescript: tsResolver,
-    },
   },
 };
 
@@ -393,24 +379,12 @@ const eslintConfig = typescriptEslint.config(
   eslintConfigPrettier,
   importConfig,
   reactConfig,
-  jsxA11yConfig
+  jsxA11yConfig,
 );
 
 eslintConfig.map((config) => {
   config.files = ['src/**/*.ts', 'src/**/*.tsx'];
-  config.ignores = [
-    '*.cjs',
-    '*.js',
-    '*.d.ts',
-    'node_modules/',
-    'public/',
-    'build/',
-    'dist/',
-    'coverage/',
-    'docker/',
-    '.idea/',
-    '.storybook/',
-  ];
+  config.ignores = ['*.cjs', '*.js', '*.d.ts', 'node_modules/', 'public/', 'build/', 'dist/', 'coverage/', 'docker/'];
 });
 
 export default eslintConfig;
