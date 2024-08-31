@@ -8,4 +8,4 @@ if [ "$branch" = "develop" ]; then
   exit 1
 fi
 
-npm run lintstaged
+pnpm lintstaged

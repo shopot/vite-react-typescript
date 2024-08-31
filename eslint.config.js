@@ -212,7 +212,11 @@ const typescriptConfig = {
         selector: 'variable',
         types: ['boolean'],
         format: ['PascalCase'],
-        prefix: ['is', 'has', 'should', 'can'],
+        prefix: ['is', 'should', 'has', 'can', 'did', 'will'],
+        filter: {
+          regex: '^([A-Z_]+)',
+          match: false,
+        },
       },
     ],
     '@typescript-eslint/no-useless-empty-export': 'error',
@@ -233,9 +237,7 @@ const typescriptConfig = {
 
 const importConfig = {
   name: 'import-x',
-  plugins: {
-    'import-x': eslintImportX,
-  },
+  plugins: { 'import-x': eslintImportX },
   rules: {
     'import-x/first': 'error',
     'import-x/newline-after-import': 'error',
@@ -265,19 +267,29 @@ const importConfig = {
       'error',
       {
         'newlines-between': 'always',
-        groups: ['builtin', 'external', 'internal', 'unknown', 'parent', 'sibling', 'index', 'object', 'type'],
-        alphabetize: { order: 'asc' },
+        groups: ['builtin', 'external', 'internal', 'unknown', ['sibling', 'parent'], 'index', 'object'],
         pathGroupsExcludedImportTypes: ['builtin'],
         pathGroups: [
-          { pattern: 'react', group: 'external' },
-          { pattern: 'react-dom/**', group: 'external' },
-          /** FSD */
-          { pattern: '~app/**', group: 'internal' },
-          { pattern: '~pages/**', group: 'internal' },
-          { pattern: '~widgets/**', group: 'internal' },
-          { pattern: '~features/**', group: 'internal' },
-          { pattern: '~shared/**', group: 'internal' },
+          { pattern: 'react', group: 'builtin' },
+          { pattern: 'react-dom/client', group: 'builtin' },
+          { pattern: 'react-router-dom', group: 'builtin' },
           /** Bulletproof React */
+          { pattern: 'api', group: 'internal' },
+          { pattern: 'app', group: 'internal' },
+          { pattern: 'assets', group: 'internal' },
+          { pattern: 'components', group: 'internal' },
+          { pattern: 'config', group: 'internal' },
+          { pattern: 'contexts', group: 'internal' },
+          { pattern: 'features', group: 'internal' },
+          { pattern: 'hooks', group: 'internal' },
+          { pattern: 'lib', group: 'internal' },
+          { pattern: 'providers', group: 'internal' },
+          { pattern: 'routes', group: 'internal' },
+          { pattern: 'stores', group: 'internal' },
+          { pattern: 'store', group: 'internal' },
+          { pattern: 'utils', group: 'internal' },
+          { pattern: 'types', group: 'internal' },
+          // ---
           { pattern: 'api/**', group: 'internal' },
           { pattern: 'app/**', group: 'internal' },
           { pattern: 'assets/**', group: 'internal' },
@@ -292,10 +304,11 @@ const importConfig = {
           { pattern: 'stores/**', group: 'internal' },
           { pattern: 'store/**', group: 'internal' },
           { pattern: 'utils/**', group: 'internal' },
+          { pattern: 'types/**', group: 'internal' },
+          // ---
           {
-            pattern: '*.(css|sass|less|scss|pcss|style)',
-            group: 'index',
-            patternOptions: { matchBase: true },
+            pattern: './*.scss',
+            group: 'sibling',
             position: 'after',
           },
         ],
@@ -307,11 +320,6 @@ const importConfig = {
         patterns: [
           {
             group: [
-              '~app/*/**',
-              '~pages/*/**',
-              '~widgets/*/**',
-              '~features/*/**',
-              '~shared/*/**',
               'api/*/**',
               'app/*/**',
               'assets/*/*/**',

@@ -17,17 +17,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "~app": ["./src/app"],
-      "~app/*": ["./src/app/*"],
-      "~pages": ["./src/pages"],
-      "~pages/*": ["./src/pages/*"],
-      "~widgets": ["./src/widgets"],
-      "~widgets/*": ["./src/widgets/*"],
-      "~features": ["./src/features"],
-      "~features/*": ["./src/features/*"],
-      "~shared": ["./src/shared"],
-      "~shared/*": ["./src/shared/*"],
-
       "app": ["./src/app"],
       "app/*": ["./src/app/*"],
 
