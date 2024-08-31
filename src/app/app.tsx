@@ -1,5 +1,8 @@
-import './app.scss';
-import { AppRouter } from './app-router';
-import { withProviders } from './providers';
+import type { JSX } from 'react';
+import { RouterProvider } from 'react-router-dom';
 
-export const App = withProviders((): JSX.Element => <AppRouter />);
+import './app.scss';
+
+import { router } from 'app/router';
+
+export const App = (): JSX.Element => <RouterProvider router={router} />;
