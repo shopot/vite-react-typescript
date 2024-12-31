@@ -77,6 +77,7 @@ function getAliasesFromTsConfig(tsConfigPath: string) {
   try {
     tsConfig = JSON.parse(nodeFs.readFileSync(tsConfigPath, 'utf8'));
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error(err);
   }
 

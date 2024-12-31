@@ -4,9 +4,11 @@ type ProxyType = Record<string, string | ProxyOptions>;
 
 const proxyConfig = (proxy: HttpProxy.Server): void => {
   proxy.on('error', (err) => {
+    // eslint-disable-next-line no-console
     console.error('proxy error', err);
   });
   proxy.on('proxyReq', (proxyReq, req) => {
+    // eslint-disable-next-line no-console
     console.info(
       'Sending Request:',
       req.method,
@@ -20,6 +22,7 @@ const proxyConfig = (proxy: HttpProxy.Server): void => {
     );
   });
   proxy.on('proxyRes', (proxyRes, req) => {
+    // eslint-disable-next-line no-console
     console.info('Received Response from the Target:', proxyRes.statusCode, req.url, JSON.stringify(proxyRes.headers));
   });
 };
