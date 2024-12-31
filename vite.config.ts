@@ -1,21 +1,24 @@
 import { defineConfig, type PluginOption } from 'vite';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import * as nodePath from 'node:path';
 import * as nodeFs from 'node:fs';
 import * as nodeUrl from 'node:url';
 import { visualizer } from 'rollup-plugin-visualizer';
 import crypto from 'node:crypto';
+import autoprefixer from 'autoprefixer';
 import { config } from 'dotenv';
 
 config();
+
+const __dirname = nodePath.dirname(nodeUrl.fileURLToPath(import.meta.url));
 
 import { createProxy } from './vite.setupProxy';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-const TS_CONFIG_PATH = './tsconfig.app.json';
+const tsConfigPath = './tsconfig.app.json';
 
-const UI_PORT = Number(process.env.UI_PORT) || 5173;
+const PORT = Number(process.env.PORT) || 5173;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -26,42 +29,20 @@ export default defineConfig({
       filename: 'report.html',
     }) as PluginOption,
   ],
-  publicDir: resolvePath('public'),
-  build: {
-    outDir: 'dist',
-    rollupOptions: {
-      output: {
-        chunkFileNames: 'js/[hash].js',
-        entryFileNames: 'js/[hash].js',
-
-        assetFileNames: ({ name }) => {
-          if (/\.(gif|jpe?g|png|svg|webp)$/.test(name ?? '')) {
-            return 'images/[hash][extname]';
-          }
-
-          if (/\.(woff|woff2|eot|ttf|otf)$/.test(name ?? '')) {
-            return 'fonts/[hash][extname]';
-          }
-
-          if (/\.css$/.test(name ?? '')) {
-            return 'styles/[hash][extname]';
-          }
-
-          return 'assets/[name]-[hash][extname]';
-        },
-      },
-    },
-  },
   css: {
     modules: {
       localsConvention: 'camelCase',
       generateScopedName: isDev ? generateScopedNameDevelopment : generateScopedNameProduction,
     },
+    postcss: {
+      plugins: [autoprefixer],
+    },
   },
-  resolve: { alias: { ...getAliasesFromTsConfig(TS_CONFIG_PATH) } },
+  resolve: { alias: { ...getAliasesFromTsConfig(tsConfigPath) } },
   server: {
     open: true,
-    port: UI_PORT,
+    port: PORT,
+    host: '127.0.0.1',
     proxy: createProxy(),
   },
 });
@@ -71,8 +52,6 @@ function createHash(filename: string) {
 }
 
 function resolvePath(path: string = '.'): string {
-  const __dirname = nodePath.dirname(nodeUrl.fileURLToPath(import.meta.url));
-
   return nodePath.resolve(__dirname, '.', path);
 }
 

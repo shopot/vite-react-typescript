@@ -19,41 +19,16 @@
     "paths": {
       "app": ["./src/app"],
       "app/*": ["./src/app/*"],
-
       "assets": ["./src/assets"],
       "assets/*": ["./src/assets/*"],
-
-      "components": ["./src/components"],
-      "components/*": ["./src/components/*"],
-
-      "config": ["./src/config"],
-      "config/*": ["./src/config/*"],
-
+      "modules": ["./src/modules"],
+      "modules/*": ["./src/modules/*"],
       "features": ["./src/features"],
       "features/*": ["./src/features/*"],
-
-      "hooks": ["./src/hooks"],
-      "hooks/*": ["./src/hooks/*"],
-
-      "lib": ["./src/lib"],
-      "lib/*": ["./src/lib/*"],
-
-      "contexts": ["./src/contexts"],
-      "contexts/*": ["./src/contexts/*"],
-
-      "store": ["./src/store"],
-      "store/*": ["./src/store/*"],
-      "stores": ["./src/stores"],
-      "stores/*": ["./src/stores/*"],
-
-      "test": ["./src/test"],
-      "test/*": ["./src/test/*"],
-
+      "core": ["./src/core"],
+      "core/*": ["./src/core/*"],
       "types": ["./src/types"],
-      "types/*": ["./src/types/*"],
-
-      "utils": ["./src/utils"],
-      "utils/*": ["./src/utils/*"]
+      "types/*": ["./src/types/*"]
     }
   },
   "include": ["src"]
