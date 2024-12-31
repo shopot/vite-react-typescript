@@ -128,7 +128,7 @@ export default [
           {
             patterns: [
               {
-                group: ['app/*/**', 'assets/*/*/**', 'core/*/*/**', 'modules/*/**', 'features/**', 'types/*/**'],
+                group: ['app/*/**', 'assets/*/*/**', 'core/*/*/**', 'modules/*/**', 'features/*/**', 'types/*/**'],
                 message: 'Direct access to the internal parts of the module is prohibited',
               },
             ],
