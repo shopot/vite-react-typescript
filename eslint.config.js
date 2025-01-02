@@ -8,6 +8,7 @@ import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import { includeIgnoreFile } from '@eslint/compat';
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -24,6 +25,12 @@ export default [
       react: {
         version: 'detect',
       },
+      'import/resolver-next': [
+        createTypeScriptImportResolver({
+          alwaysTryTypes: true,
+          project: '.',
+        }),
+      ],
     },
     languageOptions: {
       ...reactPlugin.configs.flat.recommended.languageOptions,
