@@ -1,16 +1,18 @@
-import { defineConfig, type PluginOption } from 'vite';
-import react from '@vitejs/plugin-react';
 import * as nodePath from 'node:path';
 import * as nodeFs from 'node:fs';
 import * as nodeUrl from 'node:url';
-import { visualizer } from 'rollup-plugin-visualizer';
 import crypto from 'node:crypto';
+
+import { visualizer } from 'rollup-plugin-visualizer';
+import react from '@vitejs/plugin-react';
+import { defineConfig, type PluginOption } from 'vite';
 import autoprefixer from 'autoprefixer';
 import { config } from 'dotenv';
 
 config();
 
-const __dirname = nodePath.dirname(nodeUrl.fileURLToPath(import.meta.url));
+const __filename = nodeUrl.fileURLToPath(import.meta.url);
+const __dirname = nodePath.dirname(__filename);
 
 import { createProxy } from './vite.setupProxy';
 

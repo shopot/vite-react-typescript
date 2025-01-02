@@ -1,3 +1,6 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
@@ -9,8 +12,6 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import { includeIgnoreFile } from '@eslint/compat';
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -97,51 +98,64 @@ export default [
   {
     plugins: {
       import: importPlugin,
-      rules: {
-        'import/order': [
-          'error',
-          {
-            'newlines-between': 'always',
-            groups: ['builtin', 'external', 'internal', 'unknown', ['sibling', 'parent'], 'index', 'object'],
-            pathGroupsExcludedImportTypes: ['builtin'],
-            pathGroups: [
-              { pattern: 'react', group: 'builtin' },
-              { pattern: 'react-dom/client', group: 'builtin' },
-              { pattern: 'react-router-dom', group: 'builtin' },
-              /** React Modules */
-              { pattern: 'app', group: 'internal' },
-              { pattern: 'assets', group: 'internal' },
-              { pattern: 'core', group: 'internal' },
-              { pattern: 'modules', group: 'internal' },
-              { pattern: 'features', group: 'internal' },
-              { pattern: 'types', group: 'internal' },
-              { pattern: 'app/**', group: 'internal' },
-              { pattern: 'assets/**', group: 'internal' },
-              { pattern: 'core/**', group: 'internal' },
-              { pattern: 'modules/**', group: 'internal' },
-              { pattern: 'features/**', group: 'internal' },
-              { pattern: 'types/**', group: 'internal' },
-              //---
-              {
-                pattern: './*.scss',
-                group: 'sibling',
-                position: 'after',
-              },
-            ],
-          },
-        ],
-        'no-restricted-imports': [
-          'error',
-          {
-            patterns: [
-              {
-                group: ['app/*/**', 'assets/*/*/**', 'core/*/*/**', 'modules/*/**', 'features/*/**', 'types/*/**'],
-                message: 'Direct access to the internal parts of the module is prohibited',
-              },
-            ],
-          },
-        ],
-      },
+    },
+    rules: {
+      'import/order': [
+        'error',
+        {
+          'newlines-between': 'always',
+          groups: ['builtin', 'external', 'internal', 'unknown', ['sibling', 'parent'], 'index', 'object'],
+          pathGroupsExcludedImportTypes: ['builtin'],
+          pathGroups: [
+            { pattern: 'react', group: 'builtin' },
+            { pattern: 'react-dom/client', group: 'builtin' },
+            { pattern: 'react-router-dom', group: 'builtin' },
+            /** React Modules */
+            { pattern: 'app', group: 'internal' },
+            { pattern: 'assets', group: 'internal' },
+            { pattern: 'core', group: 'internal' },
+            { pattern: 'modules', group: 'internal' },
+            { pattern: 'features', group: 'internal' },
+            { pattern: 'types', group: 'internal' },
+            { pattern: 'app/**', group: 'internal' },
+            { pattern: 'assets/**', group: 'internal' },
+            { pattern: 'core/**', group: 'internal' },
+            { pattern: 'modules/**', group: 'internal' },
+            { pattern: 'features/**', group: 'internal' },
+            { pattern: 'types/**', group: 'internal' },
+            //---
+            {
+              pattern: './*.scss',
+              group: 'sibling',
+              position: 'after',
+            },
+          ],
+        },
+      ],
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: [
+                'app/*/**',
+                'assets/*/*/**',
+                'core/*/*/**',
+                'modules/*/**',
+                'features/*/**',
+                'types/*/**',
+                '@/app/*/**',
+                '@/assets/*/*/**',
+                '@/core/*/*/**',
+                '@/modules/*/**',
+                '@/features/*/**',
+                '@/types/*/**',
+              ],
+              message: 'Direct access to the internal parts of the module is prohibited',
+            },
+          ],
+        },
+      ],
     },
   },
 ];
