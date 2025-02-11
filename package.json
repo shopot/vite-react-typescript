@@ -62,15 +62,6 @@
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5"
   },
-  "prettier": {
-    "printWidth": 120,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "arrowParens": "always",
-    "endOfLine": "lf",
-    "useTabs": false,
-    "tabWidth": 2
-  },
   "browserslist": {
     "production": [
       ">0.2%",
