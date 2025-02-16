@@ -23,24 +23,24 @@ $ git commit -a -m "init: start project"
 $ git remote add origin https://github.com/your_nickname/your-repo-name.git
 $ git branch -M main
 $ git push -u origin main
-$ pnpm install
-$ pnpm dev
+$ npm run install
+$ npm run dev
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ pnpm dev
+$ npm run dev
 
 # build production
-$ pnpm build
+$ npm run build
 
 # preview mode
-$ pnpm preview
+$ npm run preview
 
 # start linting
-$ pnpm lint
+$ npm run lint
 ```
 
 ## License
