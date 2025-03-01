@@ -1,6 +1,6 @@
 import { type JSX, useState } from 'react';
 
-import reactLogo from '../../../assets/react.svg';
+import reactLogo from '~assets/react.svg';
 
 export const HomePage = (): JSX.Element => {
   const [count, setCount] = useState(0);
@@ -14,7 +14,14 @@ export const HomePage = (): JSX.Element => {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((value) => value + 1)}>count is {count}</button>
+        <button
+          type="button"
+          onClick={() => {
+            setCount((prevValue) => prevValue + 1);
+          }}
+        >
+          count is {count}
+        </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

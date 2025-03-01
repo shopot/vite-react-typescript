@@ -1,18 +1,18 @@
-import * as nodePath from 'node:path';
-import * as nodeFs from 'node:fs';
-import * as nodeUrl from 'node:url';
 import crypto from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { visualizer } from 'rollup-plugin-visualizer';
 import react from '@vitejs/plugin-react';
-import { defineConfig, type PluginOption } from 'vite';
 import autoprefixer from 'autoprefixer';
 import { config } from 'dotenv';
+import { visualizer } from 'rollup-plugin-visualizer';
+import { defineConfig, type PluginOption } from 'vite';
 
 config();
 
-const __filename = nodeUrl.fileURLToPath(import.meta.url);
-const __dirname = nodePath.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 import { createProxy } from './vite.setupProxy';
 
@@ -54,7 +54,7 @@ function createHash(filename: string) {
 }
 
 function resolvePath(path: string = '.'): string {
-  return nodePath.resolve(__dirname, '.', path);
+  return resolve(__dirname, '.', path);
 }
 
 function generateScopedNameDevelopment(name: string, filename: string) {
@@ -77,9 +77,8 @@ function getAliasesFromTsConfig(tsConfigPath: string) {
   let tsConfig: JSON & { compilerOptions: { paths: Record<string, string[]> } } = null!;
 
   try {
-    tsConfig = JSON.parse(nodeFs.readFileSync(tsConfigPath, 'utf8'));
+    tsConfig = JSON.parse(readFileSync(tsConfigPath, 'utf8'));
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error(err);
   }
 
@@ -88,7 +87,7 @@ function getAliasesFromTsConfig(tsConfigPath: string) {
   const aliasesMap = new Map();
 
   Object.entries(aliases).forEach(([alias, [path]]) => {
-    if (alias.includes('@reduxjs') === false) {
+    if (!alias.includes('@reduxjs')) {
       const key = alias.replace('/*', '');
 
       aliasesMap.set(key, resolvePath(path.replace('/*', '')));

@@ -43,13 +43,13 @@ get_packages() {
 update_dependencies() {
   local _deps=$(get_packages "$DEPS")
 
-  echo "npm install -P $_deps" | sh
+  echo "pnpm install -P $_deps" | sh
 }
 
 update_devDependencies() {
   local _deps=$(get_packages "$DEV_DEPS")
 
-  echo "npm install -D $_deps" | sh
+  echo "pnpm install -D $_deps" | sh
 }
 
 update_dependencies

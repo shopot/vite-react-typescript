@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "baseUrl": ".",
-    "target": "ES2022",
+    "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
@@ -14,20 +15,15 @@
     "jsx": "react-jsx",
     "strict": true,
     "noFallthroughCasesInSwitch": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "paths": {
-      "app": ["./src/app"],
-      "app/*": ["./src/app/*"],
-      "assets": ["./src/assets"],
-      "assets/*": ["./src/assets/*"],
-      "modules": ["./src/modules"],
-      "modules/*": ["./src/modules/*"],
-      "features": ["./src/features"],
-      "features/*": ["./src/features/*"],
-      "core": ["./src/core"],
-      "core/*": ["./src/core/*"],
-      "types": ["./src/types"],
-      "types/*": ["./src/types/*"]
+      "~app": ["./src/app"],
+      "~app/*": ["./src/app/*"],
+      "~assets": ["./src/assets"],
+      "~assets/*": ["./src/assets/*"],
+      "~core": ["./src/core"],
+      "~core/*": ["./src/core/*"],
+      "~modules": ["./src/modules"],
+      "~modules/*": ["./src/modules/*"]
     }
   },
   "include": ["src"]
