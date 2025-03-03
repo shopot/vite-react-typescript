@@ -91,7 +91,7 @@ export default [
       ...tsRules(),
       ...tsNamingConventionRule(),
       ...importRules(),
-      ...perfectionistRules(),
+      ...sortRules(),
       ...stylisticRules(),
     },
   },
@@ -440,7 +440,7 @@ function importRules() {
   };
 }
 
-function perfectionistRules() {
+function sortRules() {
   return {
     'perfectionist/sort-jsx-props': [
       OFF,
