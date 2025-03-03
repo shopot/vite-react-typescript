@@ -443,15 +443,49 @@ function importRules() {
 function sortRules() {
   return {
     'perfectionist/sort-jsx-props': [
-      OFF,
+      WARN,
       {
-        specialCharacters: 'keep',
-        groups: ['builtin', 'data', 'multiline', 'unknown', 'shorthand', 'callback'],
         customGroups: {
-          builtin: ['^style$', '^className$', '^key$', '^ref$', '^id$', '^name$', '^htmlFor$', '^src$'],
-          data: ['^data-.*$'],
-          callback: ['^on.+'],
+          key: ['^key$', '^keys$'],
+          id: ['^id$', '^name$', '^testId$', '^data-testid$', '^data-autotest$'],
+          accessibility: ['^title$', '^alt$', '^placeholder$', '^label$', '^description$', '^fallback$'],
+          callback: ['^on.+', '^handle.+'],
+          className: ['^className$', '^class$', '^style$'],
+          control: ['^asChild$', '^as$'],
+          data: ['^data-*', '^aria-*'],
+          ref: ['^ref$', '^innerRef$'],
+          state: [
+            '^value$',
+            '^checked$',
+            '^selected$',
+            '^open$',
+            '^defaultValue$',
+            '^defaultChecked$',
+            '^defaultOpen$',
+            '^disabled$',
+            '^required$',
+            '^readOnly$',
+            '^loading$',
+            '^(is|has|should|can|did|will).+',
+          ],
+          variant: ['^variant$', '^size$', '^orientation$', '^color$'],
         },
+        groups: [
+          'id',
+          'key',
+          'ref',
+          'control',
+          'variant',
+          'className',
+          'state',
+          'callback',
+          'accessibility',
+          'data',
+          'unknown',
+          'shorthand',
+          'multiline',
+        ],
+        type: 'natural',
       },
     ],
     'perfectionist/sort-imports': [
@@ -528,15 +562,6 @@ function stylisticRules() {
     ],
     // React
     '@stylistic/jsx/jsx-pascal-case': ERROR,
-    '@stylistic/jsx/jsx-sort-props': [
-      ERROR,
-      {
-        callbacksLast: true,
-        ignoreCase: true,
-        noSortAlphabetically: true,
-        multiline: 'last',
-        reservedFirst: false,
-      },
-    ],
+    '@stylistic/jsx/jsx-sort-props': OFF,
   };
 }
