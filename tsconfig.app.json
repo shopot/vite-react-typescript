@@ -16,14 +16,9 @@
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "~app": ["./src/app"],
-      "~app/*": ["./src/app/*"],
-      "~assets": ["./src/assets"],
-      "~assets/*": ["./src/assets/*"],
-      "~core": ["./src/core"],
-      "~core/*": ["./src/core/*"],
-      "~modules": ["./src/modules"],
-      "~modules/*": ["./src/modules/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": ["src"]

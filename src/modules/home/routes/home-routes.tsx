@@ -4,7 +4,7 @@ import { HomePage } from './home-page';
 
 export const homeRoutes: RouteObject[] = [
   {
-    path: '/',
     element: <HomePage />,
+    path: '/',
   },
 ];

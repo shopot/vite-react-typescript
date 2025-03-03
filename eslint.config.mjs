@@ -4,7 +4,7 @@ import stylisticJS from '@stylistic/eslint-plugin-js';
 import stylisticJSX from '@stylistic/eslint-plugin-jsx';
 import stylisticTS from '@stylistic/eslint-plugin-ts';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
+import perfectionist from 'eslint-plugin-perfectionist';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import reactPlugin from 'eslint-plugin-react';
@@ -26,8 +26,9 @@ const ERROR = 2;
 const NO_ACCESS_MODIFIER = 'There is no need to limit developer access to properties.';
 
 /** @type {import('eslint').Linter.Config[]} */
-
 export default [
+  // Этот должно быть здесь в отдельном объекте, чтобы применяться глобально
+  { ignores: ['build', 'dist', 'coverage', 'eslint.config.*', 'vite.*'] },
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
     settings: {
@@ -69,10 +70,11 @@ export default [
   eslint.configs.recommended,
   reactRefresh.configs.vite,
   reactPlugin.configs.flat.recommended,
-  importPlugin.flatConfigs.recommended,
-  importPlugin.flatConfigs.typescript,
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
+  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
+  perfectionist.configs['recommended-natural'],
   {
     plugins: {
       'react-hooks': reactHooks,
@@ -84,18 +86,14 @@ export default [
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      ...tseslint.config.strictTypeChecked,
-      ...tseslint.config.stylisticTypeChecked,
       ...jsRules(),
       ...reactRules(),
       ...tsRules(),
       ...tsNamingConventionRule(),
-      ...importRules(),
+      ...perfectionistRules(),
       ...stylisticRules(),
     },
   },
-  // Этот должно быть здесь в отдельном объекте, чтобы применяться глобально
-  { ignores: ['build', 'dist', 'coverage', 'eslint.config.mjs', 'vite.config.ts'] },
 ];
 
 function jsRules() {
@@ -161,7 +159,10 @@ function jsRules() {
     'no-console': [ERROR, { allow: ['warn', 'error', 'debug'] }],
     'no-sequences': [ERROR, { allowInParentheses: false }],
     'no-else-return': [ERROR, { allowElseIf: false }],
-    'no-unused-vars': [ERROR, { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
+    'no-unused-vars': [
+      ERROR,
+      { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_', destructuredArrayIgnorePattern: '^_' },
+    ],
     'no-unneeded-ternary': [ERROR, { defaultAssignment: false }],
     'no-duplicate-imports': [ERROR, { includeExports: true }],
     'no-restricted-syntax': [
@@ -199,11 +200,6 @@ function jsRules() {
       {
         selector: "Identifier[name='propTypes']",
         message: 'No PropTypes. Use Typescript instead.',
-      },
-      {
-        selector: "Identifier[name='createContext']",
-        message:
-          'No React Context. Use component composition instead (https://beta.reactjs.org/learn/passing-data-deeply-with-context#before-you-use-context), or a "Global State Management" solution.',
       },
     ],
     'prefer-destructuring': [ERROR, { array: false, object: true }, { enforceForRenamedProperties: false }],
@@ -272,7 +268,7 @@ function tsRules() {
     '@typescript-eslint/prefer-function-type': ERROR,
     '@typescript-eslint/prefer-optional-chain': ERROR,
     '@typescript-eslint/no-unnecessary-condition': ERROR,
-    '@typescript-eslint/consistent-type-definitions': ERROR,
+    '@typescript-eslint/consistent-type-definitions': [ERROR, 'type'],
     '@typescript-eslint/prefer-reduce-type-parameter': ERROR,
     '@typescript-eslint/consistent-indexed-object-style': ERROR,
     '@typescript-eslint/consistent-generic-constructors': ERROR,
@@ -414,66 +410,52 @@ function tsNamingConventionRule() {
   };
 }
 
-function importRules() {
+function perfectionistRules() {
   return {
-    // Import rules
-    'import/named': OFF,
-    'import/default': ERROR,
-    'import/namespace': OFF,
-    'import/prefer-default-export': OFF,
-    'import/no-default-export': ERROR,
-    'import/no-named-as-default-member': OFF,
-    'import/no-cycle': ERROR,
-    'import/no-namespace': ERROR,
-    'import/no-unresolved': ERROR, // eslint-import-resolver-typescript
-    'import/no-empty-named-blocks': ERROR,
-    'import/no-useless-path-segments': ERROR,
-    'import/no-duplicates': [ERROR, { 'prefer-inline': true, considerQueryString: true }],
-    'import/no-extraneous-dependencies': [ERROR, { devDependencies: true }],
-    'import/order': [
-      ERROR,
+    'perfectionist/sort-jsx-props': [
+      OFF,
       {
-        groups: ['builtin', 'external', 'internal', 'unknown', ['sibling', 'parent'], 'index', 'object'],
-        pathGroups: [
-          { pattern: 'react', group: 'builtin' },
-          { pattern: 'react-dom/client', group: 'builtin' },
-          { pattern: 'app/**/*', group: 'internal' },
-          { pattern: 'assets/**/*', group: 'internal' },
-          { pattern: 'core/**/*', group: 'internal' },
-          { pattern: 'modules/**/*', group: 'internal' },
-          { pattern: '~app/**/*', group: 'internal' },
-          { pattern: '~assets/**/*', group: 'internal' },
-          { pattern: '~core/**/*', group: 'internal' },
-          { pattern: '~modules/**/*', group: 'internal' },
-          {
-            pattern: './*.css',
-            group: 'sibling',
-            position: 'after',
-          },
-          {
-            pattern: './*.scss',
-            group: 'sibling',
-            position: 'after',
-          },
-        ],
-        pathGroupsExcludedImportTypes: ['builtin'],
-        'newlines-between': 'always',
-        alphabetize: {
-          order: 'asc',
-          orderImportKind: 'asc',
-          caseInsensitive: false,
+        specialCharacters: 'keep',
+        groups: ['builtin', 'data', 'multiline', 'unknown', 'shorthand', 'callback'],
+        customGroups: {
+          builtin: ['^style$', '^className$', '^key$', '^ref$', '^id$', '^name$', '^htmlFor$', '^src$'],
+          data: ['^data-.*$'],
+          callback: ['^on.+'],
         },
       },
     ],
-    'no-restricted-imports': [
+    'perfectionist/sort-imports': [
       ERROR,
       {
-        patterns: [
-          {
-            group: ['~app/**', 'app/**', '~modules/*/**', 'modules/*/**', '~core/*/**', 'core/*/**'],
-            message: 'Direct access to the internal parts of the module is prohibited',
-          },
+        type: 'alphabetical',
+        order: 'asc',
+        fallbackSort: { type: 'unsorted' },
+        ignoreCase: true,
+        specialCharacters: 'keep',
+        internalPattern: ['^@\/.+'],
+        partitionByComment: false,
+        partitionByNewLine: false,
+        newlinesBetween: 'always',
+        maxLineLength: undefined,
+        groups: [
+          'react',
+          ['builtin', 'external', 'type'],
+          ['internal', 'internal-type'],
+          ['parent-type', 'sibling-type', 'index-type', 'parent', 'sibling', 'index'],
+          'side-effect',
+          'style',
+          'object',
+          'unknown',
         ],
+        customGroups: {
+          value: {
+            react: ['^react$', '^react-.+'],
+          },
+          type: {
+            react: ['^react$', '^react-.+'],
+          },
+        },
+        environment: 'node',
       },
     ],
   };
