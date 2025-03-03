@@ -90,6 +90,7 @@ export default [
       ...reactRules(),
       ...tsRules(),
       ...tsNamingConventionRule(),
+      ...importRules(),
       ...perfectionistRules(),
       ...stylisticRules(),
     },
@@ -405,6 +406,35 @@ function tsNamingConventionRule() {
         format: ['strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
         leadingUnderscore: 'forbid',
         trailingUnderscore: 'forbid',
+      },
+    ],
+  };
+}
+
+function importRules() {
+  return {
+    'no-restricted-imports': [
+      ERROR,
+      {
+        patterns: [
+          {
+            group: [
+              'app/*/**',
+              'assets/*/*/**',
+              'core/*/*/**',
+              'modules/*/**',
+              'features/*/**',
+              'types/*/**',
+              '@/app/*/**',
+              '@/assets/*/*/**',
+              '@/core/*/*/**',
+              '@/modules/*/**',
+              '@/features/*/**',
+              '@/types/*/**',
+            ],
+            message: 'Direct access to the internal parts of the module is prohibited',
+          },
+        ],
       },
     ],
   };
