@@ -442,6 +442,7 @@ function importRules() {
 
 function sortRules() {
   return {
+    'perfectionist/sort-enums': OFF,
     'perfectionist/sort-jsx-props': [
       WARN,
       {
