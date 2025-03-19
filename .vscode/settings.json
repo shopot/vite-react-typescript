@@ -16,7 +16,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
   },
   "editor.formatOnSave": true,
   "editor.quickSuggestions": {
@@ -36,5 +37,6 @@
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
-  "eslint.useFlatConfig": true
+  "eslint.useFlatConfig": true,
+  "stylelint.validate": ["css", "scss"]
 }

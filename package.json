@@ -14,6 +14,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
+    "lint:style": "stylelint ./src/**/*.{css,scss,tsx}",
     "preview": "vite preview",
     "prepare": "husky",
     "lintstaged": "lint-staged --relative"
@@ -59,9 +60,13 @@
     "globals": "^16.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
+    "postcss-scss": "^4.0.9",
     "prettier": "^3.5.3",
     "rollup-plugin-visualizer": "^5.14.0",
     "sass": "^1.86.0",
+    "stylelint": "^16.16.0",
+    "stylelint-config-standard": "^37.0.0",
+    "stylelint-config-standard-scss": "^14.0.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.26.1",
     "vite": "^6.2.2"

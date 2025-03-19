@@ -28,7 +28,7 @@ const NO_ACCESS_MODIFIER = 'There is no need to limit developer access to proper
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   // Этот должно быть здесь в отдельном объекте, чтобы применяться глобально
-  { ignores: ['build', 'dist', 'coverage', 'eslint.config.*', 'vite.*'] },
+  { ignores: ['build', 'dist', 'coverage', 'eslint.config.*', 'vite.*', 'stylelint.config.*'] },
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
     settings: {
