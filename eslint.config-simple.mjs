@@ -229,6 +229,8 @@ function importRules() {
 
 function sortRules() {
   return {
+    'perfectionist/sort-object-types': OFF,
+    'perfectionist/sort-objects': OFF,
     'perfectionist/sort-enums': OFF,
     'perfectionist/sort-jsx-props': [
       WARN,
