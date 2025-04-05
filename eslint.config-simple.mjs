@@ -105,6 +105,14 @@ function commonRules() {
     'react/react-in-jsx-scope': OFF,
     'react/require-default-props': OFF,
     'react/jsx-props-no-spreading': OFF,
+    'react/jsx-curly-brace-presence': [
+      ERROR,
+      {
+        props: 'never',
+        children: 'never',
+        propElementValues: 'always',
+      },
+    ],
     'jsx-a11y/anchor-is-valid': OFF,
     // Typescript rules
     '@typescript-eslint/consistent-type-definitions': [ERROR, 'type'],
