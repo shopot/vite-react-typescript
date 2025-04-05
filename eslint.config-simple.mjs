@@ -119,6 +119,7 @@ function commonRules() {
     '@typescript-eslint/consistent-type-definitions': [ERROR, 'type'],
     '@typescript-eslint/no-non-null-assertion': OFF,
     '@typescript-eslint/consistent-type-exports': OFF,
+    '@typescript-eslint/no-unnecessary-type-parameters': OFF,
     '@typescript-eslint/no-unsafe-assignment': OFF,
     '@typescript-eslint/no-unsafe-call': OFF,
     '@typescript-eslint/no-unsafe-member-access': OFF,
