@@ -98,6 +98,7 @@ export default [
 function commonRules() {
   return {
     'no-console': OFF,
+    'arrow-body-style': ERROR,
     // React rules
     'react/prop-types': OFF,
     'react/display-name': OFF,
