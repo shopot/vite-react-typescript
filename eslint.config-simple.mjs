@@ -116,6 +116,7 @@ function commonRules() {
     ],
     'jsx-a11y/anchor-is-valid': OFF,
     // Typescript rules
+    '@typescript-eslint/array-type': ['error', { default: 'generic' }],
     '@typescript-eslint/consistent-type-definitions': [ERROR, 'type'],
     '@typescript-eslint/no-non-null-assertion': OFF,
     '@typescript-eslint/consistent-type-exports': OFF,
@@ -290,7 +291,7 @@ function sortRules() {
         internalPattern: ['^@\/.+'],
         partitionByComment: false,
         partitionByNewLine: false,
-        newlinesBetween: 'always',
+        newlinesBetween: 'never',
         maxLineLength: undefined,
         groups: [
           'react',
