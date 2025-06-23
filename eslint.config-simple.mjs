@@ -314,6 +314,19 @@ function sortRules() {
         environment: 'node',
       },
     ],
+    'perfectionist/sort-interfaces': [
+      'error',
+      {
+        groups: ['top', 'unknown', 'property', 'member', 'method', 'multiline-member'],
+        customGroups: [
+          {
+            groupName: 'top',
+            selector: 'property',
+            elementNamePattern: '^(?:id|uuid|name)$',
+          },
+        ],
+      },
+    ],
   };
 }
 
