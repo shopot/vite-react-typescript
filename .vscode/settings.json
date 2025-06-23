@@ -19,6 +19,7 @@
     "source.fixAll.eslint": "explicit",
     "source.fixAll.stylelint": "explicit"
   },
+  "eslint.format.enable": true,
   "editor.formatOnSave": true,
   "editor.quickSuggestions": {
     "strings": "on"
